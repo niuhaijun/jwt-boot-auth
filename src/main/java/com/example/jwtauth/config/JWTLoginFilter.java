@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -36,10 +36,8 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
           .readValue(req.getInputStream(), MyUser.class);
 
       return authenticationManager.authenticate(
-          new UsernamePasswordAuthenticationToken(
-              user.getUsername(),
-              user.getPassword(),
-              new ArrayList<>())
+          new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(),
+              Collections.emptyList())
       );
     } catch (IOException e) {
       throw new RuntimeException(e);

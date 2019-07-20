@@ -1,5 +1,6 @@
-package com.example.jwtauth;
+package com.example.jwtauth.config;
 
+import com.example.jwtauth.entity.MyUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

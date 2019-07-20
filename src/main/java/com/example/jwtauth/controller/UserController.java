@@ -1,5 +1,7 @@
-package com.example.jwtauth;
+package com.example.jwtauth.controller;
 
+import com.example.jwtauth.dao.MyUserRepository;
+import com.example.jwtauth.entity.MyUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

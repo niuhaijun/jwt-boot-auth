@@ -1,4 +1,4 @@
-package com.example.jwtauth;
+package com.example.jwtauth.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

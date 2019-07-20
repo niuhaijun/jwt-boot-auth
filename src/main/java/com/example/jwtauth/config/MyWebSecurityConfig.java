@@ -1,4 +1,4 @@
-package com.example.jwtauth;
+package com.example.jwtauth.config;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;

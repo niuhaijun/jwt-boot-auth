@@ -1,7 +1,9 @@
-package com.example.jwtauth;
+package com.example.jwtauth.service.impl;
 
 import static java.util.Collections.emptyList;
 
+import com.example.jwtauth.dao.MyUserRepository;
+import com.example.jwtauth.entity.MyUser;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

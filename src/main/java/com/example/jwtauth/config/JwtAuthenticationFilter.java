@@ -1,4 +1,4 @@
-package com.example.jwtauth;
+package com.example.jwtauth.config;
 
 import io.jsonwebtoken.Jwts;
 import java.io.IOException;

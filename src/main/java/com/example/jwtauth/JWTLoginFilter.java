@@ -19,41 +19,44 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
 
-    public JWTLoginFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+  private AuthenticationManager authenticationManager;
+
+  public JWTLoginFilter(AuthenticationManager authenticationManager) {
+
+    this.authenticationManager = authenticationManager;
+  }
+
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest req,
+      HttpServletResponse res) throws AuthenticationException {
+
+    try {
+      MyUser user = new ObjectMapper()
+          .readValue(req.getInputStream(), MyUser.class);
+
+      return authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(
+              user.getUsername(),
+              user.getPassword(),
+              new ArrayList<>())
+      );
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
-        try {
-            MyUser user = new ObjectMapper()
-                    .readValue(req.getInputStream(), MyUser.class);
+  @Override
+  protected void successfulAuthentication(HttpServletRequest req,
+      HttpServletResponse res,
+      FilterChain chain,
+      Authentication auth) throws IOException, ServletException {
 
-            return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            user.getUsername(),
-                            user.getPassword(),
-                            new ArrayList<>())
-            );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
-
-        String token = Jwts.builder()
-                .setSubject(((User) auth.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
-                .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
-                .compact();
-        res.addHeader("Authorization", "Bearer " + token);
-    }
+    String token = Jwts.builder()
+        .setSubject(((User) auth.getPrincipal()).getUsername())
+        .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
+        .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
+        .compact();
+    res.addHeader("Authorization", "Bearer " + token);
+  }
 }

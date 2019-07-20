@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-    private MyUserRepository applicationUserRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private MyUserRepository applicationUserRepository;
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(MyUserRepository myUserRepository,
-                          BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.applicationUserRepository = myUserRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+  public UserController(MyUserRepository myUserRepository,
+      BCryptPasswordEncoder bCryptPasswordEncoder) {
 
-    @PostMapping("/signup")
-    public void signUp(@RequestBody MyUser user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        applicationUserRepository.save(user);
-    }
+    this.applicationUserRepository = myUserRepository;
+    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+  }
+
+  @PostMapping("/signup")
+  public void signUp(@RequestBody MyUser user) {
+
+    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    applicationUserRepository.save(user);
+  }
 }

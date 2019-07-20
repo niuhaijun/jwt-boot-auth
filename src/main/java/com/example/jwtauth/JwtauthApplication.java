@@ -12,18 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class JwtauthApplication {
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  public static void main(String[] args) {
 
-    @RequestMapping("/hello")
-    @ResponseBody
-    public String hello(){
-	    return "hello";
-    }
+    SpringApplication.run(JwtauthApplication.class, args);
+  }
 
-	public static void main(String[] args) {
-		SpringApplication.run(JwtauthApplication.class, args);
-	}
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+
+    return new BCryptPasswordEncoder();
+  }
+
+  @RequestMapping("/hello")
+  @ResponseBody
+  public String hello() {
+
+    return "hello";
+  }
 }
